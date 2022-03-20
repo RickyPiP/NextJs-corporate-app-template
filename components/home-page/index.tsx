@@ -1,25 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import tw from "twin.macro";
-import styled from "@emotion/styled";
-import AccesBtn from "./button";
-import { Container } from "../container";
-import { Main } from "./maine";
-import HomepageBtn from "./button";
-import HomepageContent from "./content";
-import { Grid } from "./grid";
-import HomepageForm from "./form";
-import HomepagePattern from "./pattern";
-import PricingTitle from "./cards/pricing-title";
-import PricingCard from "./cards/pricing-card";
-import PricingCardMain from "./cards/pricing-card-main";
-import Testimonial from "../testimonial-page/Testimonial";
-import { Angelina } from "../../assets/data";
-import { PaddingWrapper } from "../padding-wrapper";
-import React, { useEffect, useLayoutEffect, useState, useContext } from "react";
-import { AuthContext } from "../../context/auth-context";
+import tw from 'twin.macro'
+import styled from '@emotion/styled'
+import AccesBtn from './button'
+import { Container } from '../container'
+import { Main } from './maine'
+import HomepageBtn from './button'
+import HomepageContent from './content'
+import { Grid } from './grid'
+import HomepageForm from './form'
+import HomepagePattern from './pattern'
+import PricingTitle from './cards/pricing-title'
+import PricingCard from './cards/pricing-card'
+import PricingCardMain from './cards/pricing-card-main'
+import Testimonial from '../../pages/testimonials/Testimonial'
+import { Angelina } from '../../public/data'
+import { PaddingWrapper } from '../padding-wrapper'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/auth-context'
 
 const Homepage = () => {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext)
   return (
     <div>
       {/* <div onClick={() => console.log(auth)}>click me</div> */}
@@ -51,7 +51,7 @@ const Homepage = () => {
       </Main>
       <Testimonial proprieties={Angelina} />
     </div>
-  );
-};
+  )
+}
 
-export default Homepage;
+export default Homepage

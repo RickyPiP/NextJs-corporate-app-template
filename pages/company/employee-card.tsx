@@ -3,7 +3,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { EmployeeData } from '../../public/data'
 
-export const EmployeeCard = () => {
+const EmployeeCard = () => {
   const employee = EmployeeData.map(item => {
     return (
       <div tw="bg-gray-800 py-10   rounded-lg">
@@ -60,3 +60,5 @@ export const EmployeeCard = () => {
     </div>
   )
 }
+
+export default EmployeeCard

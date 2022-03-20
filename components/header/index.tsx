@@ -91,7 +91,7 @@ const Header = () => {
       />
 
       <Container>
-        <div tw="flex justify-between items-center px-5 py-2 ">
+        <div tw="flex justify-between items-center hover:cursor-pointer px-5 py-2 ">
           <Link href="/">
             <img
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"

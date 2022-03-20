@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 import { Container } from '../../components/container'
 import { PaddingWrapper } from '../../components/padding-wrapper'
 import Content from '../../components/content'
-import { EmployeeCard } from './employee-card'
+import EmployeeCard from './employee-card'
 
 const CompanyPage = () => {
   return (

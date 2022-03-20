@@ -1,45 +1,45 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 /** @jsxImportSource @emotion/react */
-import tw from "twin.macro";
-import { Link } from "react-router-dom";
-import { Container } from "../container";
-import Input from "../home-page/input";
-import { PaddingWrapper } from "../padding-wrapper";
-import { PurpleButton } from "../purple-button";
-import axios from "axios";
-import AlertMessage from "../../helper-functions/alert-message";
+import tw from 'twin.macro'
+import Link from 'next/link'
+import { Container } from '../container'
+import Input from '../home-page/input'
+import { PaddingWrapper } from '../padding-wrapper'
+import { PurpleButton } from '../purple-button'
+import axios from 'axios'
+import AlertMessage from '../../helper-functions/alert-message'
 
 const Recovery = () => {
-  const [email, setEmail] = useState();
-  const [token, setToken] = useState<any>();
-  const [error, setError] = useState<any>();
+  const [email, setEmail] = useState()
+  const [token, setToken] = useState<any>()
+  const [error, setError] = useState<any>()
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const search = async () => {
       await axios
-        .post("http://35.233.55.158:7350/v1/auth/recover", {
+        .post('http://35.233.55.158:7350/v1/auth/recover', {
           email: email,
         })
         .then(res => {
-          axios.post("http://35.233.55.158:7350/v1/auth/verify", {
-            type: "recovery",
+          axios.post('http://35.233.55.158:7350/v1/auth/verify', {
+            type: 'recovery',
             token: res.data.recovery_token,
-          });
-          setToken(res.data.recovery_token);
-          setError("");
+          })
+          setToken(res.data.recovery_token)
+          setError('')
         })
         // aici o sa bagi ce-o zis popa
         .catch(function (error) {
           if (error.response) {
-            setError(error.response.data.details[0].message);
-            setToken(null);
+            setError(error.response.data.details[0].message)
+            setToken(null)
           }
-        });
-    };
-    search();
-  };
+        })
+    }
+    search()
+  }
 
   return (
     <div tw="bg-gray-100 text-black text-center mb-10">
@@ -55,7 +55,7 @@ const Recovery = () => {
                     error={error}
                     inputValue={email}
                     handleChange={(e): any => {
-                      setEmail(e.target.value);
+                      setEmail(e.target.value)
                     }}
                     type="text"
                     placeholder="Enter your email"
@@ -65,13 +65,14 @@ const Recovery = () => {
                   <div tw="mt-3">
                     {AlertMessage(
                       error,
-                      "Cannot send recovery email",
+                      'Cannot send recovery email',
                       token,
-                      "Recovery email sent. Check your email."
+                      'Recovery email sent. Check your email.',
                     )}
                     {token && (
                       <Link
-                        to="/"
+                        passHref
+                        href="/"
                         tw="text-white rounded-md p-1.5 hover:bg-indigo-500 bg-indigo-300 font-bold"
                       >
                         Go to homepage
@@ -85,7 +86,7 @@ const Recovery = () => {
         </Container>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Recovery;
+export default Recovery

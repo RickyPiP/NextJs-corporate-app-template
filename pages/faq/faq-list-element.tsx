@@ -3,8 +3,8 @@ import { FaqData } from '../../public/data'
 /** @jsxImportSource @emotion/react */
 import tw from 'twin.macro'
 import { useState } from 'react'
-import { UpArrow, DownArrow } from './up-down-icons'
-
+import DownArrow from './down-icon'
+import UpArrow from './up-icon'
 const FaqListElement = () => {
   const [selected, setSelected] = useState<null | number>(null)
   const toggle = (i: number) => {
