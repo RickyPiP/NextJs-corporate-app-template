@@ -1,41 +1,43 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from 'react'
 /** @jsxImportSource @emotion/react */
-import tw from "twin.macro";
-import axios from "axios";
-import { AuthContext } from "../../context/auth-context";
+import tw from 'twin.macro'
+import axios from 'axios'
+import { AuthContext } from '../../context/auth-context'
 
 type SupportProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 const SupportComponent = ({ children }: SupportProps) => {
-  const { auth } = useContext(AuthContext);
-  const [user, setUser] = useState();
+  const { auth } = useContext(AuthContext)
+  const [user, setUser] = useState()
+
   useEffect(() => {
+    console.log(auth)
     const search = async () => {
       await axios
         .get(
-          "http://35.233.55.158:7350/v1/auth/user",
+          'http://35.233.55.158:7350/v1/auth/user',
 
           {
             headers: {
               authorization: `bearer ${auth}`,
             },
-          }
+          },
         )
         .then(res => {
-          const response = res.data.email;
-          const name = response.substring(0, response.lastIndexOf("@"));
-          setUser(name);
-        });
-      // .catch(function (error) {
-      //   if (error.response) {
-      //     setError(error.response.data.details[0].message);
-      //   }
-      // });
-    };
-    search();
-  }, [auth]);
+          const response = res.data.email
+          const name = response.substring(0, response.lastIndexOf('@'))
+          setUser(name)
+        })
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.data.details[0].message)
+          }
+        })
+    }
+    search()
+  }, [auth])
 
   return (
     <div tw="flex  justify-between items-center space-x-2 ml-3 ">
@@ -50,7 +52,7 @@ const SupportComponent = ({ children }: SupportProps) => {
       </div>
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default SupportComponent;
+export default SupportComponent

@@ -1,8 +1,7 @@
 import React from 'react'
 /** @jsxImportSource @emotion/react */
 import tw from 'twin.macro'
-import { Container } from '../container'
-import { PaddingWrapper } from '../padding-wrapper'
+
 import Link from 'next/link'
 
 const NotFound = () => {
@@ -21,11 +20,11 @@ const NotFound = () => {
               </p>
             </div>
             <div tw="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
-              <Link
-                href="/"
-                tw="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Go back home
+              <Link href="/">
+                <a tw="inline-flex hover:cursor-pointer items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  {' '}
+                  Go back home
+                </a>
               </Link>
             </div>
           </div>

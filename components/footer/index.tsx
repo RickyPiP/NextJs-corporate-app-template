@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import styled from "@emotion/styled";
-import tw from "twin.macro";
-import "twin.macro";
-import List from "./list";
-import { Container } from "../container";
-import Input from "../home-page/input";
-import { PurpleButton } from "../purple-button";
-import FooterIcon from "./footer-icon";
-import { solutions, support, company, legal } from "../../assets/data";
+import styled from '@emotion/styled'
+import tw from 'twin.macro'
+import 'twin.macro'
+import List from './list'
+import { Container } from '../container'
+import Input from '../home-page/input'
+import { PurpleButton } from '../purple-button'
+import FooterIcon from './footer-icon'
+import { solutions, support, company, legal } from '../../public/data'
 
 const Footer = () => {
   return (
@@ -42,7 +42,7 @@ const Footer = () => {
               </div>
               <div>
                 <PurpleButton
-                  onClick={() => alert("Function not yet available")}
+                  onClick={() => alert('Function not yet available')}
                 >
                   Subscribe
                 </PurpleButton>
@@ -66,7 +66,7 @@ const Footer = () => {
         </div>
       </div>
     </Container>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

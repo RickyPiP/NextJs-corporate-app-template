@@ -31,7 +31,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         {' '}
         <Header />
         <Component {...pageProps} />
-        {/* <Footer /> */}
+        <Footer />
       </AuthContext.Provider>
     </div>
   )

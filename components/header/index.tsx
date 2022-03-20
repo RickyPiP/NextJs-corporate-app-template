@@ -49,18 +49,24 @@ const Header = () => {
 
   function removeAuth() {
     const search = () => {
-      axios.post(
-        'http://35.233.55.158:7350/v1/auth/signout',
-        {},
-        {
-          headers: {
-            Authorization: `bearer ${auth}`,
+      axios
+        .post(
+          'http://35.233.55.158:7350/v1/auth/signout',
+          {},
+          {
+            headers: {
+              Authorization: 'bearer' + auth,
+            },
           },
-        },
-      )
+        )
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.data.details[0].message)
+          }
+        })
     }
     search()
-    console.log(auth)
+
     localStorage.removeItem('authentication')
   }
 
@@ -125,7 +131,10 @@ const Header = () => {
                       removeAuth()
                     }}
                   >
-                    <AccessBtn text="Log out"></AccessBtn>
+                    <AccessBtn
+                      handleClick={() => removeAuth()}
+                      text="Log out"
+                    ></AccessBtn>
                   </div>
                 </SupportComponent>
               )}
