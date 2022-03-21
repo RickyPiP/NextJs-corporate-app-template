@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import tw from 'twin.macro'
 import axios from 'axios'
 import { AuthContext } from '../../context/auth-context'
+import Image from 'next/image'
 
 type SupportProps = {
   children: React.ReactNode
@@ -43,12 +44,15 @@ const SupportComponent = ({ children }: SupportProps) => {
     <div tw="flex  justify-between items-center space-x-2 ml-3 ">
       {/* <div onClick={handleSubmit}>Aici submit</div> */}
       <div tw="font-medium">{user}</div>
-      <div tw=" resize-none flex-shrink-0">
-        <img
-          tw="inline-block h-10 w-10 rounded-full"
-          src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
-          alt=""
-        />
+      <div tw=" resize-none flex-shrink-0 flex items-center">
+        <div tw="inline-block relative h-10 w-10">
+          <Image
+            tw=" rounded-full"
+            src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+            alt=""
+            layout="fill"
+          />
+        </div>
       </div>
       {children}
     </div>

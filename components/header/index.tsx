@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { AccessBtn } from '../access-button'
 import { HamburgerBtn } from './hamburger-button'
 import { Dropdown } from './dropdown'
-import useDropdown from '../../hooks/usePopups'
+
 import { useContext } from 'react'
 import React from 'react'
-import usePopups from '../../hooks/usePopups'
+import Image from 'next/image'
 import LoginModal from '../modals/login-modal'
 import SupportComponent from './support-component'
 import { LinkData } from '../../public/data'
@@ -92,21 +92,25 @@ const Header = () => {
 
       <Container>
         <div tw="flex justify-between items-center hover:cursor-pointer px-5 py-2 ">
-          <Link href="/">
-            <img
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-              alt="logo"
-              tw="h-10 md:hidden hover:cursor-pointer"
-            ></img>
+          <Link href="/" passHref>
+            <div tw="h-10 w-10 relative md:hidden hover:cursor-pointer">
+              <Image
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                alt="logo"
+                layout="fill"
+              ></Image>
+            </div>
           </Link>
 
           <div tw="hidden  resize-none flex-shrink-0 md:block md:flex md:items-center md:space-x-5 lg:space-x-12">
-            <Link href="/">
-              <img
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                alt="logo"
-                tw="h-12"
-              ></img>
+            <Link href="/" passHref>
+              <div tw="h-12 w-12 relative">
+                <Image
+                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                  alt="logo"
+                  layout="fill"
+                ></Image>
+              </div>
             </Link>
 
             {Links}

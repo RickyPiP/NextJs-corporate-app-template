@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { LinkData } from '../../public/data'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import { AuthContext } from '../../context/auth-context'
-import React, { useRef, useCallback, useContext } from 'react'
+import { useRef, useCallback, useContext } from 'react'
+import Image from 'next/image'
 
 export const Dropdown = ({ isOpen, toggleDropdown, closeDropdown }: any) => {
   const { setIsModalOpen, auth, setAuth }: any = useContext(AuthContext)
@@ -38,9 +39,9 @@ export const Dropdown = ({ isOpen, toggleDropdown, closeDropdown }: any) => {
     >
       <div tw="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
         <div tw="px-5 pt-4 flex items-center justify-between">
-          <div>
-            <img
-              tw="h-8 w-auto"
+          <div tw="h-10 w-10 relative">
+            <Image
+              layout="fill"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
               alt=""
             />
@@ -60,9 +61,9 @@ export const Dropdown = ({ isOpen, toggleDropdown, closeDropdown }: any) => {
                 aria-hidden="true"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>

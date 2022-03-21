@@ -1,6 +1,7 @@
-import React from "react";
-import tw from "twin.macro";
-import HomepageBtn from "./button";
+import React from 'react'
+import tw from 'twin.macro'
+import HomepageBtn from './button'
+import Image from 'next/image'
 
 /** @jsxImportSource @emotion/react */
 
@@ -22,32 +23,34 @@ const HomepageText = () => {
         <span tw="font-medium">USED BY</span>
         <div tw="mt-5 w-full ">
           <div tw="flex items-start justify-between sm:justify-center sm:space-x-12 sm:items-center sm:flex-shrink-0 lg:justify-start">
-            <div tw="flex justify-center px-1">
-              <img
-                tw="h-9 sm:h-10 "
+            <div tw="flex justify-center px-1 relative h-10 w-16 lg:h-16 lg:w-24 ">
+              <Image
                 src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg"
                 alt="Tuple"
+                layout="fill"
               />
             </div>
-            <div tw="flex justify-center px-1">
-              <img
+            <div tw="flex justify-center px-1 relative h-10 w-16 lg:h-16 lg:w-24 ">
+              <Image
                 tw="h-9 sm:h-10"
                 src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg"
                 alt="Workcation"
+                layout="fill"
               />
             </div>
-            <div tw="flex justify-center px-1">
-              <img
+            <div tw="flex justify-center px-1 relative h-10 w-16 lg:h-16 lg:w-24 ">
+              <Image
                 tw="h-9 sm:h-10"
                 src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg"
                 alt="StaticKit"
+                layout="fill"
               />
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomepageText;
+export default HomepageText

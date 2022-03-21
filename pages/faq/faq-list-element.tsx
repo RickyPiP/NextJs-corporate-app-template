@@ -16,7 +16,10 @@ const FaqListElement = () => {
   }
   const mappedData = FaqData.map((item, i) => {
     return (
-      <div tw="border-t border-gray-300 pt-5 lg:max-w-5xl lg:mx-auto ">
+      <div
+        key={item.answer}
+        tw="border-t border-gray-300 pt-5 lg:max-w-5xl lg:mx-auto "
+      >
         <div tw="hover:cursor-pointer transition-all duration-300">
           <div
             tw="flex justify-between font-semibold text-gray-900 text-lg "

@@ -3,6 +3,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import { BlogData } from '../../public/data'
+import Image from 'next/image'
 
 const BlogElement = () => {
   const blogPost = BlogData.map(item => {
@@ -11,8 +12,8 @@ const BlogElement = () => {
         tw="flex flex-col rounded-lg shadow-lg overflow-hidden max-w-md mx-auto"
         key={item.title}
       >
-        <div tw="flex-shrink-0">
-          <img tw="h-48 w-full object-cover" src={item.bgUrl} alt="" />
+        <div tw="flex-shrink-0 h-48 w-full object-cover relative">
+          <Image layout="fill" src={item.bgUrl} alt="" />
         </div>
         <div tw="flex-1 bg-white p-6 flex flex-col justify-between">
           <div tw="flex-1">
@@ -30,7 +31,15 @@ const BlogElement = () => {
           <div tw="mt-6 flex items-center">
             <div tw="flex-shrink-0">
               <a href="#">
-                <img tw="h-10 w-10 rounded-full" src={item.avatarUrl} alt="" />
+                <div tw="h-10 w-10 relative">
+                  <Image
+                    layout="fill"
+                    tw=" rounded-full"
+                    src={item.avatarUrl}
+                    alt=""
+                    objectFit="cover"
+                  />
+                </div>
               </a>
             </div>
             <div tw="ml-3">

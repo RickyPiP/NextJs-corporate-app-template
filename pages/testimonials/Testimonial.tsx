@@ -1,17 +1,19 @@
-import React from "react";
+/* eslint-disable @next/next/no-img-element */
+import React from 'react'
 /** @jsxImportSource @emotion/react */
-import tw from "twin.macro";
-import styled from "@emotion/styled";
-import "twin.macro";
+import tw from 'twin.macro'
+import styled from '@emotion/styled'
+import 'twin.macro'
+import Image from 'next/image'
 
 type TestimonialProps = {
   proprieties: {
-    url: string;
-    text: string;
-    name: string;
-    job: string;
-  };
-};
+    url: string
+    text: string
+    name: string
+    job: string
+  }
+}
 
 const Testimonial = ({ proprieties }: TestimonialProps) => {
   return (
@@ -25,11 +27,13 @@ const Testimonial = ({ proprieties }: TestimonialProps) => {
                   <div tw="absolute inset-x-0 top-0 h-1/2 bg-gray-800 lg:hidden"></div>
                   <div tw="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full">
                     <div tw="rounded-xl shadow-xl overflow-auto relative  lg:h-full">
-                      <img
-                        tw="object-cover lg:h-full lg:w-full"
-                        src={proprieties.url}
-                        alt=""
-                      />
+                      <div tw="relative h-full w-full">
+                        <img
+                          tw="object-cover lg:h-full lg:w-full"
+                          src={proprieties.url}
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -70,7 +74,7 @@ const Testimonial = ({ proprieties }: TestimonialProps) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Testimonial;
+export default Testimonial

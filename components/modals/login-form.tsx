@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 /** @jsxImportSource @emotion/react */
 import tw from 'twin.macro'
+import Image from 'next/image'
 
 import { PurpleButton } from '../purple-button'
 import Link from 'next/link'
@@ -14,7 +15,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [error, setError] = useState<any>()
-  const { auth, setAuth, setIsModalOpen, rememberMe, setRememberMe }: any =
+  const { setAuth, setIsModalOpen, rememberMe, setRememberMe }: any =
     useContext(AuthContext)
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -53,11 +54,13 @@ const LoginForm = () => {
         <form onSubmit={handleSubmit}>
           <div tw="text-center">
             <div tw="sm:mx-auto sm:w-full sm:max-w-md">
-              <img
-                tw="mx-auto h-12 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt="Workflow"
-              />
+              <div tw="relative h-12 w-auto">
+                <Image
+                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                  alt="Workflow"
+                  layout="fill"
+                />
+              </div>
               <h2 tw="mt-6 text-center text-3xl font-extrabold text-gray-900">
                 Sign in to your account
               </h2>
