@@ -8,9 +8,9 @@ import Image from 'next/image'
 
 type TestimonialProps = {
   proprieties: {
-    url: string
+    url?: string
     text: string
-    name: string
+    name?: string
     job: string
   }
 }
@@ -30,7 +30,7 @@ const Testimonial = ({ proprieties }: TestimonialProps) => {
                       <div tw="relative h-full w-full">
                         <img
                           tw="object-cover lg:h-full lg:w-full"
-                          src={proprieties.url}
+                          src={proprieties?.url}
                           alt=""
                         />
                       </div>
@@ -59,10 +59,10 @@ const Testimonial = ({ proprieties }: TestimonialProps) => {
                       </div>
                       <footer tw="mt-6">
                         <p tw="text-base font-medium text-white">
-                          {proprieties.name}
+                          {proprieties?.name}
                         </p>
                         <p tw="text-base font-medium text-indigo-100">
-                          {proprieties.job}
+                          {proprieties?.job}
                         </p>
                       </footer>
                     </blockquote>

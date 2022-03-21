@@ -17,7 +17,7 @@ const FaqListElement = () => {
   const mappedData = FaqData.map((item, i) => {
     return (
       <div
-        key={item.answer}
+        key={item.question}
         tw="border-t border-gray-300 pt-5 lg:max-w-5xl lg:mx-auto "
       >
         <div tw="hover:cursor-pointer transition-all duration-300">
