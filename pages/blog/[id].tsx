@@ -1,7 +1,8 @@
 import tw from 'twin.macro'
 /** @jsxImportSource @emotion/react */
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 import React from 'react'
+import Image from 'next/image'
 
 import { Container } from '../../components/container'
 import { PaddingWrapper } from '../../components/padding-wrapper'
@@ -24,7 +25,7 @@ export const getStaticProps = async (context: any) => {
   }
 }
 
-const randomPage = ({ data }: any) => {
+const RandomPage = ({ data }: any) => {
   const router = useRouter()
   const mappedData = data.map((item: any) => {
     if (item.id == router.query.id)
@@ -35,8 +36,13 @@ const randomPage = ({ data }: any) => {
             <Container>
               <PaddingWrapper>
                 <div tw="md:grid md:grid-cols-2 md:space-x-20">
-                  <div tw="max-w-2xl">
-                    <img src={item.bgUrl} alt="" tw="rounded-3xl mb-4" />
+                  <div tw="max-w-2xl mb-4 relative h-96 w-full">
+                    <Image
+                      objectFit="contain"
+                      layout="fill"
+                      src={item.bgUrl}
+                      alt=""
+                    />
                   </div>
                   <div tw="text-white text-left ">
                     <h1 tw="text-2xl font-bold">{item.title}</h1>
@@ -58,4 +64,4 @@ const randomPage = ({ data }: any) => {
   return <div>{mappedData}</div>
 }
 
-export default randomPage
+export default RandomPage
