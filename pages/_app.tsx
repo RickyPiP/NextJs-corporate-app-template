@@ -6,6 +6,7 @@ import usePopups from '../hooks/usePopups'
 import { AuthContext } from '../context/auth-context'
 import Footer from '../components/footer'
 import './app.styles.css'
+import Head from 'next/head'
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [isDropdownOpen, toggleDropdown, setClose] = usePopups()
@@ -26,6 +27,9 @@ const App = ({ Component, pageProps }: AppProps) => {
   }
   return (
     <div>
+      <Head>
+        <title>Corporate-App</title>
+      </Head>
       <GlobalStyles />
       <AuthContext.Provider value={value}>
         {' '}
