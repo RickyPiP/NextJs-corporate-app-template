@@ -7,6 +7,12 @@ import { AuthContext } from '../context/auth-context'
 import Footer from '../components/footer'
 import './app.styles.css'
 import Head from 'next/head'
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+
+const client = new ApolloClient({
+  uri: 'https://backend-dev1-graphql-europe-west1-b.win.com/query',
+  cache: new InMemoryCache(),
+})
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [isDropdownOpen, toggleDropdown, setClose] = usePopups()
@@ -26,18 +32,20 @@ const App = ({ Component, pageProps }: AppProps) => {
     setRememberMe,
   }
   return (
-    <div>
-      <Head>
-        <title>Corporate-App</title>
-      </Head>
-      <GlobalStyles />
-      <AuthContext.Provider value={value}>
-        {' '}
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
-      </AuthContext.Provider>
-    </div>
+    <ApolloProvider client={client}>
+      <div>
+        <Head>
+          <title>Corporate-App</title>
+        </Head>
+        <GlobalStyles />
+        <AuthContext.Provider value={value}>
+          {' '}
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </AuthContext.Provider>
+      </div>
+    </ApolloProvider>
   )
 }
 

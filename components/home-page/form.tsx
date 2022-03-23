@@ -1,45 +1,46 @@
-import React, { useEffect, useState, useContext } from "react";
-import tw from "twin.macro";
-import { PurpleButton } from "../purple-button";
-import FormIcon from "./form-icon";
-import Hr from "./horizontal-rule";
-import Input from "./input";
+import React, { useEffect, useState, useContext } from 'react'
+import tw from 'twin.macro'
+import { PurpleButton } from '../purple-button'
+import FormIcon from './form-icon'
+import Hr from './horizontal-rule'
+import Input from './input'
 /** @jsxImportSource @emotion/react */
-import axios from "axios";
-import AlertMessage from "../../helper-functions/alert-message";
-import { AuthContext } from "../../context/auth-context";
+import axios from 'axios'
+import AlertMessage from '../../helper-functions/alert-message'
+import { AuthContext } from '../../context/auth-context'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
 const HomepageForm = () => {
-  const { setAuth, auth } = useContext(AuthContext);
+  const { setAuth, auth } = useContext(AuthContext)
   const [user, setUser] = useState({
-    email: "",
-    password: "",
-    confirmPass: "",
-  });
-  const [errorPresent, setErrorPresent] = useState<any>();
-  const [createSuccess, setCreateSuccess] = useState<any>();
+    email: '',
+    password: '',
+    confirmPass: '',
+  })
+  const [errorPresent, setErrorPresent] = useState<any>()
+  const [createSuccess, setCreateSuccess] = useState<any>()
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const search = async () => {
       await axios
-        .post("http://35.233.55.158:7350/v1/auth/signup", {
+        .post('http://35.233.55.158:7350/v1/auth/signup', {
           email: user.email,
           password: user.password,
           password_confirmation: user.confirmPass,
         })
         .then(res => {
           axios
-            .post("http://35.233.55.158:7350/v1/auth/verify", {
-              type: "signup",
+            .post('http://35.233.55.158:7350/v1/auth/verify', {
+              type: 'signup',
               token: res.data.confirmation_token,
             })
             .then(response => {
-              setAuth(response.data.access_token);
-            });
-          setErrorPresent("");
-          setCreateSuccess(true);
+              setAuth(response.data.access_token)
+            })
+          setErrorPresent('')
+          setCreateSuccess(true)
 
           // setAuth(res.data.confirmation_token);
         })
@@ -47,14 +48,14 @@ const HomepageForm = () => {
         //console.log(response)
         .catch(function (error) {
           if (error.response) {
-            setErrorPresent(error.response.data.details[0].message);
+            setErrorPresent(error.response.data.details[0].message)
           } else if (error.request) {
-            console.log(error.request);
+            console.log(error.request)
           }
-        });
-    };
-    search();
-  };
+        })
+    }
+    search()
+  }
 
   return (
     <div tw="bg-white text-black relative mb-8 sm:mx-auto sm:rounded-lg sm:max-w-md  max-w-7xl flex-grow-0">
@@ -74,7 +75,7 @@ const HomepageForm = () => {
               placeholder="Email address"
               name="email"
               handleChange={(e): any => {
-                setUser({ ...user, email: e.target.value });
+                setUser({ ...user, email: e.target.value })
               }}
               error={errorPresent}
             />
@@ -84,7 +85,7 @@ const HomepageForm = () => {
               type="password"
               placeholder="Enter your password"
               handleChange={(e): any => {
-                setUser({ ...user, password: e.target.value });
+                setUser({ ...user, password: e.target.value })
               }}
               error={errorPresent}
             />
@@ -94,27 +95,27 @@ const HomepageForm = () => {
               type="password"
               placeholder="Re-Enter your password"
               handleChange={(e): any => {
-                setUser({ ...user, confirmPass: e.target.value });
+                setUser({ ...user, confirmPass: e.target.value })
               }}
               error={errorPresent}
             />
           </div>
           <PurpleButton tw="mb-5">Create your account</PurpleButton>
 
-          {AlertMessage(errorPresent, "Cannot create account")}
+          {AlertMessage(errorPresent, 'Cannot create account')}
         </form>
       </div>
       <div tw="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 sm:rounded-b-lg">
         <p tw="text-xs leading-5 text-gray-500">
-          By signing up, you agree to our{" "}
+          By signing up, you agree to our{' '}
           <a href="#" tw="font-medium text-gray-900 hover:underline">
             Terms
           </a>
-          ,{" "}
+          ,{' '}
           <a href="#" tw="font-medium text-gray-900 hover:underline">
             Data Policy
-          </a>{" "}
-          and{" "}
+          </a>{' '}
+          and{' '}
           <a href="#" tw="font-medium text-gray-900 hover:underline">
             Cookies Policy
           </a>
@@ -122,7 +123,7 @@ const HomepageForm = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomepageForm;
+export default HomepageForm

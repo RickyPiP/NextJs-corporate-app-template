@@ -14,7 +14,7 @@ const SupportComponent = ({ children }: SupportProps) => {
   const [user, setUser] = useState()
 
   useEffect(() => {
-    console.log(auth)
+    // console.log(auth)
     const search = async () => {
       await axios
         .get(

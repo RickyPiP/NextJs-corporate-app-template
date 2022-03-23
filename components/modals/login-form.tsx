@@ -10,11 +10,12 @@ import { AuthContext } from '../../context/auth-context'
 import axios from 'axios'
 import AlertMessage from '../../helper-functions/alert-message'
 import Input from '../home-page/input'
+import { useMutation, gql } from '@apollo/client'
 
 const LoginForm = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
-  const [error, setError] = useState<any>()
+  const [errors, setError] = useState<any>()
   const { setAuth, setIsModalOpen, rememberMe, setRememberMe }: any =
     useContext(AuthContext)
 
@@ -31,7 +32,7 @@ const LoginForm = () => {
         .then(res => {
           setAuth(res.data.access_token)
           setIsModalOpen(false)
-          console.log(res.data.access_token)
+          // console.log(res.data.access_token)
         })
         .catch(function (error) {
           if (error.response) {
@@ -40,7 +41,6 @@ const LoginForm = () => {
         })
     }
     search()
-    console.log(error)
   }
 
   const handleChange = (e: any) => {
@@ -77,8 +77,7 @@ const LoginForm = () => {
           </div>
           <div tw="my-5">
             <Input
-              error={error}
-              inputValue={email}
+              error={errors}
               type="text"
               placeholder="Email address"
               name="email"
@@ -87,8 +86,7 @@ const LoginForm = () => {
               }}
             />
             <Input
-              error={error}
-              inputValue={password}
+              error={errors}
               type="password"
               placeholder="Enter password"
               name="password"
@@ -127,7 +125,7 @@ const LoginForm = () => {
             </div>
           </div>
           <PurpleButton>Sign in</PurpleButton>
-          <div tw="mt-3">{AlertMessage(error, 'Cannot log in')}</div>
+          <div tw="mt-3">{AlertMessage(errors, 'Cannot log in')}</div>
         </form>
       </div>
     </div>
