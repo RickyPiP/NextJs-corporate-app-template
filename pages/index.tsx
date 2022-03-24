@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
-import { AccessBtn } from '../components/access-button'
+
 import { Container } from '../components/container'
 import { Main } from '../components/home-page/maine'
-import HomepageBtn from '../components/home-page/button'
+
 import HomepageContent from '../components/home-page/content'
 import { Grid } from '../components/home-page/grid'
 import HomepageForm from '../components/home-page/form'
@@ -15,7 +15,7 @@ import PricingCardMain from '../components/home-page/cards/pricing-card-main'
 import Testimonial from './testimonials/Testimonial'
 import { Angelina } from '../public/data'
 import { PaddingWrapper } from '../components/padding-wrapper'
-import React, { useEffect, useLayoutEffect, useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { AuthContext } from '../context/auth-context'
 
 const Homepage = () => {

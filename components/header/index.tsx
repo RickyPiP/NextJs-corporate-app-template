@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { AccessBtn } from '../access-button'
 import { HamburgerBtn } from './hamburger-button'
 import { Dropdown } from './dropdown'
-
 import { useContext } from 'react'
 import React from 'react'
 import Image from 'next/image'
@@ -13,7 +12,9 @@ import LoginModal from '../modals/login-modal'
 import SupportComponent from './support-component'
 import { LinkData } from '../../public/data'
 import { AuthContext } from '../../context/auth-context'
+import { SIGNOUT } from '../api/mutations'
 import axios from 'axios'
+import { useMutation } from '@apollo/client'
 
 const Header = () => {
   const {
@@ -45,27 +46,42 @@ const Header = () => {
     if (rememberMe) {
       localStorage.setItem('authentication', JSON.stringify(auth))
     }
+    console.log(auth)
   }, [rememberMe, auth])
 
-  function removeAuth() {
-    const search = () => {
-      axios
-        .post(
-          'http://35.233.55.158:7350/v1/auth/signout',
-          {},
-          {
-            headers: {
-              Authorization: 'bearer' + auth,
-            },
+  const [signOut] = useMutation(SIGNOUT)
+
+  async function removeAuth() {
+    try {
+      await signOut({
+        context: {
+          headers: {
+            authorization: `Bearer ${auth}`,
           },
-        )
-        .catch(function (error) {
-          if (error.response) {
-            console.log(error.response.data.details[0].message)
-          }
-        })
+        },
+      })
+    } catch (e) {
+      console.log(e)
     }
-    search()
+
+    // const search = () => {
+    //   axios
+    //     .post(
+    //       'http://35.233.55.158:7350/v1/auth/signout',
+    //       {},
+    //       {
+    //         headers: {
+    //           Authorization: 'bearer' + auth,
+    //         },
+    //       },
+    //     )
+    //     .catch(function (error) {
+    //       if (error.response) {
+    //         console.log(error.response.data.details[0].message)
+    //       }
+    //     })
+    // }
+    // search()
 
     localStorage.removeItem('authentication')
   }

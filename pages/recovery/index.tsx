@@ -2,43 +2,64 @@ import React, { useState } from 'react'
 /** @jsxImportSource @emotion/react */
 import tw from 'twin.macro'
 import Link from 'next/link'
-import { Container } from '../container'
-import Input from '../home-page/input'
-import { PaddingWrapper } from '../padding-wrapper'
-import { PurpleButton } from '../purple-button'
+import { Container } from '../../components/container'
+import Input from '../../components/home-page/input'
+import { PaddingWrapper } from '../../components/padding-wrapper'
+import { PurpleButton } from '../../components/purple-button'
 import axios from 'axios'
 import AlertMessage from '../../helper-functions/alert-message'
+import { useMutation } from '@apollo/client'
+import { RECOVER } from '../../components/api/mutations'
 
 const Recovery = () => {
   const [email, setEmail] = useState()
   const [token, setToken] = useState<any>()
   const [error, setError] = useState<any>()
+  const [callRecovery] = useMutation(RECOVER)
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    const search = async () => {
-      await axios
-        .post('http://35.233.55.158:7350/v1/auth/recover', {
-          email: email,
-        })
-        .then(res => {
-          axios.post('http://35.233.55.158:7350/v1/auth/verify', {
-            type: 'recovery',
-            token: res.data.recovery_token,
-          })
-          setToken(res.data.recovery_token)
-          setError('')
-        })
-        // aici o sa bagi ce-o zis popa
-        .catch(function (error) {
-          if (error.response) {
-            setError(error.response.data.details[0].message)
-            setToken(null)
-          }
-        })
+    try {
+      const response = await callRecovery({
+        variables: {
+          input: {
+            email: email,
+          },
+        },
+      })
+      console.log(response)
+      if (response.data.recoverUser.token) {
+        setToken(response.data.recoverUser.token)
+        setError('')
+      } else {
+        setError(response.data.recoverUser.message)
+      }
+    } catch (e) {
+      console.log(e)
     }
-    search()
+
+    // const search = async () => {
+    //   await axios
+    //     .post('http://35.233.55.158:7350/v1/auth/recover', {
+    //       email: email,
+    //     })
+    //     .then(res => {
+    //       axios.post('http://35.233.55.158:7350/v1/auth/verify', {
+    //         type: 'recovery',
+    //         token: res.data.recovery_token,
+    //       })
+    //       setToken(res.data.recovery_token)
+    //       setError('')
+    //     })
+    //     // aici o sa bagi ce-o zis popa
+    //     .catch(function (error) {
+    //       if (error.response) {
+    //         setError(error.response.data.details[0].message)
+    //         setToken(null)
+    //       }
+    //     })
+    // }
+    // search()
   }
 
   return (

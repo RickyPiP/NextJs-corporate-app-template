@@ -4,6 +4,8 @@ import tw from 'twin.macro'
 import axios from 'axios'
 import { AuthContext } from '../../context/auth-context'
 import Image from 'next/image'
+import { useQuery } from '@apollo/client'
+import { USER } from '../api/mutations'
 
 type SupportProps = {
   children: React.ReactNode
@@ -13,32 +15,60 @@ const SupportComponent = ({ children }: SupportProps) => {
   const { auth } = useContext(AuthContext)
   const [user, setUser] = useState()
 
+  const { error, loading, data } = useQuery(USER, {
+    context: {
+      headers: {
+        authorization: `Bearer ${auth}`,
+      },
+    },
+  })
   useEffect(() => {
-    // console.log(auth)
-    const search = async () => {
-      await axios
-        .get(
-          'http://35.233.55.158:7350/v1/auth/user',
+    if (data) {
+      const response = data.user.email
+      const name = response.substring(0, response.lastIndexOf('@'))
+      setUser(name)
+    } else return
+  }, [data])
 
-          {
-            headers: {
-              authorization: `bearer ${auth}`,
-            },
-          },
-        )
-        .then(res => {
-          const response = res.data.email
-          const name = response.substring(0, response.lastIndexOf('@'))
-          setUser(name)
-        })
-        .catch(function (error) {
-          if (error.response) {
-            console.log(error.response.data.details[0].message)
-          }
-        })
-    }
-    search()
-  }, [auth])
+  // try {
+  //   const response = await userSee({
+  //     context: {
+  //       headers: {
+  //         authorization: `Bearer ${auth}`,
+  //       },
+  //     },
+  //   })
+  //   console.log(response)
+  // } catch (e) {
+  //   console.log(e)
+  // }
+
+  // useEffect(() => {
+  //   // console.log(auth)
+  //   const search = async () => {
+  //     await axios
+  //       .get(
+  //         'http://35.233.55.158:7350/v1/auth/user',
+
+  //         {
+  //           headers: {
+  //             authorization: `bearer ${auth}`,
+  //           },
+  //         },
+  //       )
+  //       .then(res => {
+  //         const response = res.data.email
+  //         const name = response.substring(0, response.lastIndexOf('@'))
+  //         setUser(name)
+  //       })
+  //       .catch(function (error) {
+  //         if (error.response) {
+  //           console.log(error.response.data.details[0].message)
+  //         }
+  //       })
+  //   }
+  //   search()
+  // }, [auth])
 
   return (
     <div tw="flex  justify-between items-center space-x-2 ml-3 ">

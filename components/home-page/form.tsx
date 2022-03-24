@@ -1,16 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { useMutation, gql } from '@apollo/client'
 import tw from 'twin.macro'
 import { PurpleButton } from '../purple-button'
 import FormIcon from './form-icon'
 import Hr from './horizontal-rule'
 import Input from './input'
 /** @jsxImportSource @emotion/react */
-import axios from 'axios'
+
 import AlertMessage from '../../helper-functions/alert-message'
 import { AuthContext } from '../../context/auth-context'
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { SIGNUP, VERIFY } from '../api/mutations'
 
 const HomepageForm = () => {
+  const [doConfirm]: any = useMutation(VERIFY)
+  const [doSignUp]: any = useMutation(SIGNUP)
   const { setAuth, auth } = useContext(AuthContext)
   const [user, setUser] = useState({
     email: '',
@@ -18,43 +21,40 @@ const HomepageForm = () => {
     confirmPass: '',
   })
   const [errorPresent, setErrorPresent] = useState<any>()
-  const [createSuccess, setCreateSuccess] = useState<any>()
+  const [signUp] = useMutation(SIGNUP)
+  const [verify] = useMutation(VERIFY)
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
+    try {
+      const responseSignIn = await doSignUp({
+        variables: {
+          signUpInput: {
+            email: user.email,
+            password: user.password,
+            passwordConfirmation: user.confirmPass,
+          },
+        },
+      })
 
-    const search = async () => {
-      await axios
-        .post('http://35.233.55.158:7350/v1/auth/signup', {
-          email: user.email,
-          password: user.password,
-          password_confirmation: user.confirmPass,
+      const accessToken = responseSignIn?.data?.signUp?.token
+      if (accessToken) {
+        const response = await doConfirm({
+          variables: {
+            confirmationInput: {
+              token: accessToken,
+            },
+          },
         })
-        .then(res => {
-          axios
-            .post('http://35.233.55.158:7350/v1/auth/verify', {
-              type: 'signup',
-              token: res.data.confirmation_token,
-            })
-            .then(response => {
-              setAuth(response.data.access_token)
-            })
-          setErrorPresent('')
-          setCreateSuccess(true)
-
-          // setAuth(res.data.confirmation_token);
-        })
-
-        //console.log(response)
-        .catch(function (error) {
-          if (error.response) {
-            setErrorPresent(error.response.data.details[0].message)
-          } else if (error.request) {
-            console.log(error.request)
-          }
-        })
+        setAuth(response.data.confirmRegistration.accessToken)
+        setErrorPresent('')
+        console.log(auth)
+      } else {
+        setErrorPresent(responseSignIn.data.signUp.message)
+      }
+    } catch (e) {
+      // console.log(e)
     }
-    search()
   }
 
   return (

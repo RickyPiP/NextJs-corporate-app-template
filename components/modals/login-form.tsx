@@ -11,6 +11,7 @@ import axios from 'axios'
 import AlertMessage from '../../helper-functions/alert-message'
 import Input from '../home-page/input'
 import { useMutation, gql } from '@apollo/client'
+import { LOGIN } from '../api/mutations'
 
 const LoginForm = () => {
   const [email, setEmail] = useState()
@@ -18,29 +19,43 @@ const LoginForm = () => {
   const [errors, setError] = useState<any>()
   const { setAuth, setIsModalOpen, rememberMe, setRememberMe }: any =
     useContext(AuthContext)
+  const [logIn] = useMutation(LOGIN)
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const search = async () => {
-      await axios
-        .post('http://35.233.55.158:7350/v1/auth/token', {
-          email: email,
-          password: password,
-          grant_type: 'password',
-        })
-        .then(res => {
-          setAuth(res.data.access_token)
-          setIsModalOpen(false)
-          // console.log(res.data.access_token)
-        })
-        .catch(function (error) {
-          if (error.response) {
-            setError(error.response.data.details[0].message)
-          }
-        })
+    try {
+      const loginResponse = await logIn({
+        variables: {
+          input: { email: email, password: password },
+        },
+      })
+      setAuth(loginResponse.data.signIn.accessToken)
+      setIsModalOpen(false)
+      console.log(loginResponse.data)
+    } catch (e) {
+      console.log(e)
     }
-    search()
+
+    // const search = async () => {
+    //   await axios
+    //     .post('http://35.233.55.158:7350/v1/auth/token', {
+    //       email: email,
+    //       password: password,
+    //       grant_type: 'password',
+    //     })
+    //     .then(res => {
+    //       setAuth(res.data.access_token)
+    //       setIsModalOpen(false)
+    //       // console.log(res.data.access_token)
+    //     })
+    //     .catch(function (error) {
+    //       if (error.response) {
+    //         setError(error.response.data.details[0].message)
+    //       }
+    //     })
+    // }
+    // search()
   }
 
   const handleChange = (e: any) => {
